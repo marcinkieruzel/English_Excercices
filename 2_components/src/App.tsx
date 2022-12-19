@@ -10,7 +10,7 @@ function App() {
         margin: "0 auto",
       }}
     >
-      <h1>I amsterdam</h1>
+      <h1>I love amsterdam</h1>
       <div className="mb-category-products">
         <div className="category-products">
           <ul className="products-grid products-grid--max-4-col">
