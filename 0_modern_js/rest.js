@@ -7,5 +7,10 @@ function sumAll(...args) {
   return sum;
 }
 
+sumAll(1,2,3,4)
+
+
 const arrayA = [1,2,3,4];
 const arrayB = [5,6,7,8];
+
+console.log([...arrayA, ...arrayB])

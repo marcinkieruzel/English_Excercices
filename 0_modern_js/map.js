@@ -5,3 +5,7 @@ const poland = {
     population: "38 milions"
 }
 
+
+poet.set("name", "Adam")
+poet.set("lastName", "Mickiewicz")
+poet.set(poland, "my nation")

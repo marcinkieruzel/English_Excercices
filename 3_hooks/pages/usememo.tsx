@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 const css = {
   display: "flex",
@@ -17,7 +17,9 @@ const usememo: React.FC = (): JSX.Element => {
   const [input, setInput] = useState("0");
   const [color, setColor] = useState("pink");
 
-  const factorial = factorialOf(Number(input));
+  const factorial = useMemo(() => {
+    return factorialOf(Number(input));
+  }, [input]);
 
   return (
     <>

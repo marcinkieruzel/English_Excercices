@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "./main.css";
 
 const App = () => {
-  return <h1>Hello world!!!</h1>;
+  return <h1>Hello asdasdaasdasdsd world!!!</h1>;
 };
 
-ReactDOM.hydrate(<App />, document.querySelector("#root"));
+ReactDOM.render(<App />, document.querySelector("#root"));

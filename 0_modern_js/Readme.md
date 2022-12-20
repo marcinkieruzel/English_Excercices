@@ -24,6 +24,6 @@
 
 12. In `symbol.js` try to prevent reasigning the `name` property with symbol.
 
-13. In `template_string.js` reawrite the sentence to use template strings instead of + operator.
+13. In `template_string.js` rewrite the sentence to use template strings instead of + operator.
 
 

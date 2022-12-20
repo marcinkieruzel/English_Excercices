@@ -3,6 +3,9 @@ const poet = {
     lastName: "Mickiewicz"
 }
 
-poet.name = "Juliusz"
+
+
+const x = "name"
+poet[x] = "Juliusz"
 
 console.log(poet)
