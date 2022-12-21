@@ -12,6 +12,24 @@ type Props = {};
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const SingleProperty: React.FC<Props> = ({}): JSX.Element => {
+  const params = useParams();
+
+  console.log(params);
+
+  const { data, error } = useSWR(
+    `http://localhost:3004/properties/${params.property}`,
+    (url) => {
+      return fetch(url).then((res) => res.json());
+    }
+  );
+
+  if (!data) {
+    return <p>Loading</p>;
+  }
+
+  if (error) {
+    return <p>Error</p>;
+  }
 
   return (
     <section className="container">
@@ -57,7 +75,7 @@ const SingleProperty: React.FC<Props> = ({}): JSX.Element => {
       <hr />
       <div className="row">
         <div className="col-9">
-          <h1>title</h1>
+          <h1>{data.title}</h1>
           <h2>Price: 200$</h2>
 
           <p className="lead">Excerpt</p>
@@ -70,8 +88,7 @@ const SingleProperty: React.FC<Props> = ({}): JSX.Element => {
         </div>
 
         <div className="col-3">
-          <button 
-          type="button" className="btn btn-primary">
+          <button type="button" className="btn btn-primary">
             I'm interested in this property
           </button>
         </div>

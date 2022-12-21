@@ -2,21 +2,99 @@ import React, {
   createContext,
   FormEvent,
   useContext,
+  useEffect,
   useRef,
   useState,
 } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import useSwr, { useSWRConfig } from "swr";
+
+const TrumpExample = () => {
+  // const [quote, setQuote] = useState("");
+
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const res = await fetch(
+  //         "https://api.whatdoestrumpthink.com/api/v1/quotes/random"
+  //       );
+  //       const json = await res.json();
+  //       setQuote(json.message);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   })();
+  // }, []);
+
+  const [counter, setCounter] = useState(0);
+
+  const { cache, mutate, ...extraConfig } = useSWRConfig();
+
+  const { data, error } = useSwr(
+    `https://api.whatdoestrumpthink.com/api/v1/quotes/random`,
+    (url) => {
+      console.log(cache);
+
+      if(cache.get(url)) {
+        return cache.get(url)
+      }
+
+      return fetch(url).then((r) => r.json());
+    }
+  );
+
+  if (!data) {
+    return <p>Loader ....</p>;
+  }
+
+  if (error) {
+    return <p>Error</p>;
+  }
+
+  return (
+    <p
+      onClick={() => {
+        setCounter((prev) => prev + 1);
+      }}
+    >
+      {data.message} {counter}
+    </p>
+  );
+};
+
+const T = () => {
+  const [count, setCount] = useState(90);
+  const [on, setOn] = useState(false);
+  let int = useRef<any>(0);
+
+  useEffect(() => {
+    console.log(int);
+    if (on) {
+      int.current = setInterval(() => {
+        setCount((prev) => prev - 1);
+      }, 1000);
+    } else {
+      clearInterval(int.current);
+    }
+  }, [on]);
+
+  return (
+    <>
+      <p>{count}</p>
+      <button onClick={() => setOn((prev) => !prev)}>Click</button>
+    </>
+  );
+};
 
 const Header = () => {
   const context = useContext(AppContext);
   return <p>{context.val}</p>;
 };
 
-
 const AnyOtherInput = () => {
-  return <Input2 />
-}
+  return <Input2 />;
+};
 
 const Input2 = () => {
   const context = useContext(AppContext);
@@ -46,6 +124,8 @@ const App = () => {
     <AppContext.Provider value={{ val: x, setValue: setX, hehe: "hehe" }}>
       <Header />
       <AnyOtherInput />
+      <T />
+      <TrumpExample />
     </AppContext.Provider>
   );
 };
